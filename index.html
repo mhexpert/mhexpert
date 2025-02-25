@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+    .contact-form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #222;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .contact-form input, .contact-form button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .contact-form input {
+        background: #333;
+        color: white;
+    }
+
+    .contact-form button {
+        background-color: #00ffcc;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+        background-color: #00ccaa;
+    }
+
+    .notification {
+        display: none;
+        background: #00ffcc;
+        color: black;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MH EXPERT - Ethical Hacking Academy</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+            position: relative;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #1a1a1a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #00ffcc;
+        }
+
+        .btn {
+            background-color: #00ffcc;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: black;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #00ccaa;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 150px 20px;
+            background: url('cyber-bg.jpg') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .courses, #about, #testimonials, #contact {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .course-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .course {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            font-weight: 400;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.2);
+        }
+
+        .testimonial-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .testimonial {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: left;
+        }
+
+        .testimonial p {
+            font-style: italic;
+        }
+
+        .testimonial h4 {
+            margin-top: 10px;
+            color: #00ffcc;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .hacker-img {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 150px;
+            height: auto;
+            z-index: 999;
+        }
+
+        .teacher-img {
+            position: absolute;
+            left: 20px;
+            bottom: -100px;
+            width: 200px;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+        }
+
+        .show-teacher {
+            opacity: 1;
+            bottom: 20px;
+        }
+    </style>
+	<style>
+        /* Modified body background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #003366 50%, #006600 100%);
+            color: white;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Updated teacher styles */
+        .teacher-img {
+            position: fixed;
+            left: 50px;
+            bottom: -100px;
+            width: 250px;
+            height: auto;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.5));
+        }
+
+        .show-teacher {
+            opacity: 1;
+            bottom: 30px;
+        }
+
+        /* Speech bubble styling */
+        .speech-bubble {
+            position: fixed;
+            left: 300px;
+            bottom: 150px;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            width: 250px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #00ffcc;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 40px;
+            border: 10px solid transparent;
+            border-right-color: #00ffcc;
+        }
+
+        .show-bubble {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .speech-bubble p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Pulse animation for speech bubble */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .speech-bubble {
+            animation: pulse 2s infinite;
+        }
+
+        /* Updated hero section for gradient */
+        .hero {
+            text-align: center;
+            padding: 150px 20px;
+            background: linear-gradient(45deg, rgba(18, 18, 18, 0.9), rgba(0, 51, 102, 0.8)),
+                        url('cyber-bg.jpg') no-repeat center center/cover;
+            background-blend-mode: multiply;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ... (keep other existing styles) ... */
+    </style>
+    <script>
+	let hasShownTeacher = false; // Track if the teacher has appeared once
+
+    document.addEventListener("scroll", function () {
+        let teacherImg = document.querySelector(".teacher-img");
+        let speechBubble = document.querySelector(".speech-bubble");
+
+        if (window.scrollY > 500 && !hasShownTeacher) {
+            teacherImg.classList.add("show-teacher");
+            speechBubble.classList.add("show-bubble");
+            hasShownTeacher = true; // Prevents it from appearing again
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                teacherImg.classList.remove("show-teacher");
+                speechBubble.classList.remove("show-bubble");
+            }, 5000);
+        }
+    });
+        document.addEventListener("scroll", function() {
+            let teacherImg = document.querySelector(".teacher-img");
+            let speechBubble = document.querySelector(".speech-bubble");
+            
+            if (window.scrollY > 500) {
+                teacherImg.classList.add("show-teacher");
+                speechBubble.classList.add("show-bubble");
+            } else {
+                teacherImg.classList.remove("show-teacher");
+                speechBubble.classList.remove("show-bubble");
+            }
+        });
+    </script>
+</head>
+<body>
+    <script>
+        document.addEventListener("scroll", function() {
+            let teacherImg = document.querySelector(".teacher-img");
+            if (window.scrollY > 500) {
+                teacherImg.classList.add("show-teacher");
+            } else {
+                teacherImg.classList.remove("show-teacher");
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="MH EXPERT Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="#contact" class="btn">Enroll Now</a>
+    </header>
+    
+    <section id="home" class="hero">
+        <h1>Become an Ethical Hacking Pro with MH EXPERT</h1>
+        <p>Join India’s top cybersecurity training academy & master real-world hacking skills.</p>
+        <a href="#courses" class="btn">Start Learning</a>
+    </section>
+
+    <section id="courses" class="courses">
+        <h2>Our Courses</h2>
+        <div class="course-list">
+            <div class="course">Certified Ethical Hacker (CEH)</div>
+            <div class="course">Penetration Testing</div>
+            <div class="course">Bug Bounty Hunting</div>
+        </div>
+    </section>
+    
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Welcome to MH EXPERT, a premier institution dedicated to nurturing the next generation of ethical hackers and cybersecurity experts. Our head office is located in Kochi, with branches in Bengaluru, Doha, Qatar, Oman, and Saudi Arabia.</p>
+        
+        <h3>Our Mission</h3>
+        <p>We aim to provide students from 6th to 12th standard with the skills, knowledge, and ethical grounding necessary to excel in the field of cybersecurity.</p>
+        
+        <h3>Why Choose Us?</h3>
+        <ul>
+            <li><strong>Expert-Led Training:</strong> Courses designed by industry veterans.</li>
+            <li><strong>Hands-On Learning:</strong> Real-world hacking simulations.</li>
+            <li><strong>Cutting-Edge Curriculum:</strong> Stay ahead in cybersecurity trends.</li>
+            <li><strong>Global Reach:</strong> Multiple branches worldwide.</li>
+            <li><strong>Ethical Focus:</strong> Training with responsibility.</li>
+        </ul>
+    </section>
+
+    <section id="testimonials">
+        <h2>What Our Students Say</h2>
+        <div class="testimonial-list">
+            <div class="testimonial">
+                <p>"MH EXPERT transformed my understanding of cybersecurity. The hands-on training was exceptional!"</p>
+                <h4>- John Doe</h4>
+            </div>
+            <div class="testimonial">
+                <p>"The instructors are knowledgeable and supportive. I highly recommend MH EXPERT."</p>
+                <h4>- Jane Smith</h4>
+            </div>
+            <div class="testimonial">
+                <p>"The best decision I made for my career. The courses are top-notch!"</p>
+                <h4>- Alex Johnson</h4>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p><strong>Head Office:</strong> Kochi, Kerala, India</p>
+        <p><strong>Branches:</strong> Bengaluru, Doha, Qatar, Oman, Saudi Arabia</p>
+        <p><strong>Email:</strong> mhexpert@gmail.com</p>
+        <p><strong>Phone:</strong> +91 9087657897</p>
+        <p><strong>Website:</strong> <a href="https://mhexpert.in" target="_blank">mhexpert.in</a></p>
+    </section>
+
+    <footer>
+	<h2>Contact Us</h2>
+    <p>Fill in your details, and we will contact you soon.</p>
+    <div class="contact-form">
+        <form id="contact-form" onsubmit="submitForm(event)">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="tel" name="phone" placeholder="Your Phone Number" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="notification" class="notification">We will contact you soon.</div>
+    </div>
+        <p>&copy; 2023 MH EXPERT. All rights reserved.</p>
+    </footer>
+    
+    <img src="hacker.png" alt="Hacker Image" class="hacker-img">
+    <img src="teacher.png" alt="Teacher Image" class="teacher-img">
+	 <img src="hacker.png" alt="Hacker Image" class="hacker-img">
+    <img src="teacher.png" alt="Teacher Image" class="teacher-img">
+    <div class="speech-bubble">
+        <p>Welcome to MH EXPERT! Let's explore the world of ethical hacking together and become cybersecurity experts! 🔒💻</p>
+    </div>
+	<script>
+    function submitForm(event) {
+        event.preventDefault();
+        
+        let form = document.getElementById('contact-form');
+        let button = document.querySelector("button[type='submit']");
+        
+        // Change button text and color
+        button.textContent = "Submitted!";
+        button.style.backgroundColor = "#00ccaa";  
+        
+        // Show notification
+        document.getElementById('notification').style.display = 'block';
+        
+        // Clear form fields after 1 second
+        setTimeout(() => {
+            form.reset(); // Clears input fields
+            document.getElementById('notification').style.display = 'none';
+            button.textContent = "Submit";
+            button.style.backgroundColor = "#00ffcc";
+        }, 3000);
+    }
+</script>
+
+
+
+</body>
+</html>
