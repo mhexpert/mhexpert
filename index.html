@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
     .contact-form {
         max-width: 500px;
@@ -46,6 +47,79 @@
         text-align: center;
         font-weight: bold;
     }
+	/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Adjust header for mobile */
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .logo img {
+        height: 40px; /* Smaller logo for mobile */
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Adjust hero section for mobile */
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2rem; /* Smaller heading for mobile */
+    }
+
+    .hero p {
+        font-size: 1rem; /* Smaller text for mobile */
+    }
+
+    /* Adjust course list for mobile */
+    .course-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .course {
+        width: 90%; /* Full width for mobile */
+        margin-bottom: 20px;
+    }
+
+    /* Adjust contact form for mobile */
+    .contact-form {
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* Adjust modals for mobile */
+    .modal-content {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .modal-body {
+        grid-template-columns: 1fr; /* Stack modal content vertically */
+    }
+}
+
+/* Smaller screens (e.g., phones) */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem; /* Even smaller heading for phones */
+    }
+
+    .hero p {
+        font-size: 0.9rem; /* Even smaller text for phones */
+    }
+
+    .course {
+        width: 100%; /* Full width for phones */
+    }
+}
 </style>
 
     <meta charset="UTF-8">
@@ -231,6 +305,36 @@
         }
     </style>
 	<style>
+	/* Hamburger Menu Styles */
+.menu-toggle {
+    display: none; /* Hide by default */
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Show on mobile */
+    }
+
+    .nav-links {
+        display: none; /* Hide nav links by default on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: #1a1a1a;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .nav-links.active {
+        display: flex; /* Show when active */
+    }
+}
         /* Modified body background */
         body {
             font-family: 'Poppins', sans-serif;
@@ -569,14 +673,15 @@ document.addEventListener('keydown', function(e) {
             <img src="logo.png" alt="MH EXPERT Logo">
         </div>
         <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#courses">Courses</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+    <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
         <a href="#contact" class="btn">Enroll Now</a>
     </header>
     
@@ -889,6 +994,12 @@ document.addEventListener('keydown', function(e) {
             closeCourse('penetration-testing-modal');
             closeCourse('bug-bounty-modal');
         }
+    });
+</script>
+<script>
+    // Toggle mobile menu
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('active');
     });
 </script>
 </body>
