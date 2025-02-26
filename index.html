@@ -318,6 +318,179 @@
         }
 
         /* ... (keep other existing styles) ... */
+	/* Course Modal Styles */
+.course-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 9999;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 50px auto;
+    background: linear-gradient(145deg, #1a1a1a, #002b36);
+    border-radius: 15px;
+    padding: 30px;
+    border: 2px solid #00ffcc;
+    box-shadow: 0 0 30px rgba(0,255,204,0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.neon-text {
+    color: #00ffcc;
+    text-shadow: 0 0 10px rgba(0,255,204,0.7);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #00ffcc;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.course-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #002b36;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.price-tag {
+    background: #004d40;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #ff4444;
+    margin-right: 15px;
+}
+
+.discount-price {
+    font-size: 1.5rem;
+    color: #00ffcc;
+}
+
+.discount-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+
+.curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+}
+
+.curriculum-grid li {
+    background: #002b36;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #00ffcc;
+}
+
+.instructor-card {
+    text-align: center;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.instructor-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #00ffcc;
+}
+
+.enrollment-box {
+    text-align: center;
+    background: #004d40;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.enroll-btn {
+    background: #00ffcc;
+    color: #002b36;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.enroll-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0,255,204,0.5);
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 20px;
+        padding: 15px;
+    }
+    
+    .modal-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-hero {
+        flex-direction: column;
+        text-align: center;
+    }
+}
     </style>
     <script>
 	let hasShownTeacher = false; // Track if the teacher has appeared once
@@ -361,6 +534,32 @@
             } else {
                 teacherImg.classList.remove("show-teacher");
             }
+	// Show CEH Course Modal
+function showCEHCourse() {
+    document.getElementById('ceh-course').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Close Modal
+function closeCourse(modalId) {
+    document.getElementById(modalId).style.display = 'none'; // Hide the modal
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+}
+
+// Enhanced Enrollment
+function showEnrollmentForm() {
+    closeCourse();
+    document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
+    document.querySelector('.contact-form').style.animation = 'pulse 1s 3';
+}
+
+// Add click handler to CEH course card
+document.querySelector('.course:first-child').addEventListener('click', showCEHCourse);
+
+// Close modal on ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCourse();
+});
         });
     </script>
 </head>
@@ -390,10 +589,21 @@
     <section id="courses" class="courses">
         <h2>Our Courses</h2>
         <div class="course-list">
-            <div class="course">Certified Ethical Hacker (CEH)</div>
-            <div class="course">Penetration Testing</div>
-            <div class="course">Bug Bounty Hunting</div>
-        </div>
+            <div class="course" onclick="showCourseModal('ceh-course')">
+    <h3>Certified Ethical Hacker</h3>
+    <p>EC-Council Accredited Program</p>
+    <div class="course-badge">CEH v12</div>
+</div>
+<div class="course" onclick="showCourseModal('penetration-testing-modal')">
+    <h3>Penetration Testing</h3>
+    <p>Advanced Techniques</p>
+    <div class="course-badge">Pro</div>
+</div>
+<div class="course" onclick="showCourseModal('bug-bounty-modal')">
+    <h3>Bug Bounty Hunting</h3>
+    <p>Find Vulnerabilities & Earn Rewards</p>
+    <div class="course-badge">Expert</div>
+</div>
     </section>
     
     <section id="about">
@@ -444,7 +654,7 @@
 	<h2>Contact Us</h2>
     <p>Fill in your details, and we will contact you soon.</p>
     <div class="contact-form">
-        <form id="contact-form" onsubmit="submitForm(event)">
+        <form id="contact-form" action="https://formspree.io/f/mrbewvnj" method="POST">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <input type="tel" name="phone" placeholder="Your Phone Number" required>
@@ -463,30 +673,223 @@
         <p>Welcome to MH EXPERT! Let's explore the world of ethical hacking together and become cybersecurity experts! 🔒💻</p>
     </div>
 	<script>
-    function submitForm(event) {
-        event.preventDefault();
+	function submitForm(event) {
+    event.preventDefault();
+    const form = event.target;
+    
+    // Show success message
+    const notification = document.getElementById('notification');
+    notification.style.display = 'block';
+    notification.textContent = '🎉 Enrollment request received! We will contact you within 24 hours.';
+    
+    // Add temporary animation
+    notification.style.animation = 'pulse 1s 3';
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+        form.reset();
+        notification.style.display = 'none';
+    }, 5000);
+    
+    // Track conversion
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'conversion', {'send_to': 'AW-123456789/AbCDeFgHiJKL'});
+    }
+}
+</script>
+<!-- CEH Course Modal -->
+<section id="ceh-course" class="course-modal">
+    <div class="modal-overlay" onclick="closeCourse('ceh-course')"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Certified Ethical Hacker <span class="neon-text">CEH v12</span></h2>
+            <button class="close-btn" onclick="closeCourse('ceh-course')">&times;</button>
+        </div>
         
-        let form = document.getElementById('contact-form');
-        let button = document.querySelector("button[type='submit']");
-        
-        // Change button text and color
-        button.textContent = "Submitted!";
-        button.style.backgroundColor = "#00ccaa";  
-        
-        // Show notification
-        document.getElementById('notification').style.display = 'block';
-        
-        // Clear form fields after 1 second
-        setTimeout(() => {
-            form.reset(); // Clears input fields
-            document.getElementById('notification').style.display = 'none';
-            button.textContent = "Submit";
-            button.style.backgroundColor = "#00ffcc";
-        }, 3000);
+        <div class="modal-body">
+            <div class="course-main">
+                <div class="course-hero">
+                    <div class="hero-text">
+                        <h3>Become a Certified Security Professional</h3>
+                        <div class="price-tag">
+                            <span class="original-price">₹31,998</span>
+                            <span class="discount-price">₹15,999</span>
+                            <span class="discount-badge">50% OFF</span>
+                        </div>
+                    </div>
+                    <img src="ceh-badge.png" alt="CEH Certification Badge" class="badge-img">
+                </div>
+
+                <h3 class="section-title">Course Curriculum</h3>
+                <ul class="curriculum-grid">
+                    <li>Introduction to Ethical Hacking</li>
+                    <li>Footprinting & Reconnaissance</li>
+                    <li>Network Scanning Techniques</li>
+                    <li>System Hacking Methodology</li>
+                    <li>Malware Threats & Analysis</li>
+                    <li>Social Engineering</li>
+                    <li>Denial-of-Service Attacks</li>
+                    <li>Web Application Hacking</li>
+                    <li>Wireless Network Security</li>
+                    <li>Cloud Security</li>
+                    <li>Cryptography</li>
+                    <li>Penetration Testing</li>
+                </ul>
+            </div>
+
+            <div class="course-sidebar">
+                <div class="instructor-card">
+                    <img src="instructor-ceh.jpg" alt="CEH Instructor">
+                    <h4>Mohammed Haneef</h4>
+                    <p>Certified EC-Council Instructor<br>
+                      15+ Years Cybersecurity Experience</p>
+                </div>
+
+                <div class="enrollment-box">
+                    <h4>Secure Your Spot</h4>
+                    <button class="enroll-btn" onclick="showEnrollmentForm()">Enroll Now</button>
+                    <p class="guarantee-text">✅ 7-Day Money Back Guarantee</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    // Your existing JavaScript code
+
+    // ======== Add the closeCourse() function here ========
+    function closeCourse() {
+        document.getElementById('ceh-course').style.display = 'none'; // Hide the modal
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
     }
 </script>
+<!-- Penetration Testing Modal -->
+<section id="penetration-testing-modal" class="course-modal">
+    <div class="modal-overlay" onclick="closeCourse('penetration-testing-modal')"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Penetration Testing <span class="neon-text">Advanced</span></h2>
+            <button class="close-btn" onclick="closeCourse('penetration-testing-modal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="course-main">
+                <div class="course-hero">
+                    <div class="hero-text">
+                        <h3>Master Penetration Testing Techniques</h3>
+                        <div class="price-tag">
+                            <span class="original-price">₹25,999</span>
+                            <span class="discount-price">₹12,999</span>
+                            <span class="discount-badge">50% OFF</span>
+                        </div>
+                    </div>
+                    <img src="penetration-badge.png" alt="Penetration Testing Badge" class="badge-img">
+                </div>
 
+                <h3 class="section-title">Course Curriculum</h3>
+                <ul class="curriculum-grid">
+                    <li>Introduction to Penetration Testing</li>
+                    <li>Reconnaissance and Information Gathering</li>
+                    <li>Vulnerability Assessment</li>
+                    <li>Exploitation Techniques</li>
+                    <li>Post-Exploitation</li>
+                    <li>Reporting and Documentation</li>
+                </ul>
+            </div>
 
+            <div class="course-sidebar">
+                <div class="instructor-card">
+                    <img src="instructor-penetration.jpg" alt="Penetration Testing Instructor">
+                    <h4>John Smith</h4>
+                    <p>Certified Penetration Tester<br>
+                      10+ Years Cybersecurity Experience</p>
+                </div>
 
+                <div class="enrollment-box">
+                    <h4>Secure Your Spot</h4>
+                    <button class="enroll-btn" onclick="showEnrollmentForm()">Enroll Now</button>
+                    <p class="guarantee-text">✅ 7-Day Money Back Guarantee</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bug Bounty Hunting Modal -->
+<section id="bug-bounty-modal" class="course-modal">
+    <div class="modal-overlay" onclick="closeCourse('bug-bounty-modal')"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Bug Bounty Hunting <span class="neon-text">Pro</span></h2>
+            <button class="close-btn" onclick="closeCourse('bug-bounty-modal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="course-main">
+                <div class="course-hero">
+                    <div class="hero-text">
+                        <h3>Become a Professional Bug Hunter</h3>
+                        <div class="price-tag">
+                            <span class="original-price">₹22,999</span>
+                            <span class="discount-price">₹11,499</span>
+                            <span class="discount-badge">50% OFF</span>
+                        </div>
+                    </div>
+                    <img src="bug-bounty-badge.png" alt="Bug Bounty Badge" class="badge-img">
+                </div>
+
+                <h3 class="section-title">Course Curriculum</h3>
+                <ul class="curriculum-grid">
+                    <li>Introduction to Bug Bounty Hunting</li>
+                    <li>Web Application Vulnerabilities</li>
+                    <li>API Security Testing</li>
+                    <li>Exploiting Common Vulnerabilities</li>
+                    <li>Writing Effective Reports</li>
+                    <li>Working with Bug Bounty Platforms</li>
+                </ul>
+            </div>
+
+            <div class="course-sidebar">
+                <div class="instructor-card">
+                    <img src="instructor-bug-bounty.jpg" alt="Bug Bounty Instructor">
+                    <h4>Jane Doe</h4>
+                    <p>Professional Bug Hunter<br>
+                      8+ Years Cybersecurity Experience</p>
+                </div>
+
+                <div class="enrollment-box">
+                    <h4>Secure Your Spot</h4>
+                    <button class="enroll-btn" onclick="showEnrollmentForm()">Enroll Now</button>
+                    <p class="guarantee-text">✅ 7-Day Money Back Guarantee</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    // Function to open a specific modal
+    function showCourseModal(modalId) {
+        document.getElementById(modalId).style.display = 'block'; // Show the modal
+        document.body.style.overflow = 'hidden'; // Disable scrolling
+    }
+
+    // Function to close a specific modal
+    function closeCourse(modalId) {
+        document.getElementById(modalId).style.display = 'none'; // Hide the modal
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
+    // Add click handlers to course cards
+    document.querySelector('.course:nth-child(1)').addEventListener('click', () => showCourseModal('ceh-course'));
+    document.querySelector('.course:nth-child(2)').addEventListener('click', () => showCourseModal('penetration-testing-modal'));
+    document.querySelector('.course:nth-child(3)').addEventListener('click', () => showCourseModal('bug-bounty-modal'));
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeCourse('ceh-course');
+            closeCourse('penetration-testing-modal');
+            closeCourse('bug-bounty-modal');
+        }
+    });
+</script>
 </body>
 </html>
