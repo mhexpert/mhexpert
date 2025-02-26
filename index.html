@@ -3,6 +3,60 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
+	#back-to-top {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #00ffcc;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+#back-to-top:hover {
+    background-color: #00ccaa;
+}
+	/* Hamburger Menu Styles */
+.menu-toggle {
+    display: none; /* Hide by default on desktop */
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Add rotation animation */
+}
+
+.menu-toggle.active {
+    transform: rotate(90deg); /* Rotate the hamburger icon when active */
+}
+
+.nav-links {
+    display: none; /* Hide nav links by default on mobile */
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Position below the header */
+    right: 20px;
+    background: #1a1a1a;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0; /* Start invisible */
+    transform: translateY(-10px); /* Start slightly above */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth animation */
+}
+
+.nav-links.active {
+    display: flex; /* Show when active */
+    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Slide into place */
+}
     .contact-form {
         max-width: 500px;
         margin: 0 auto;
@@ -49,12 +103,59 @@
     }
 	/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+	.contact-form input,
+.contact-form button {
+    padding: 12px; /* Larger padding for touchscreens */
+    font-size: 1rem; /* Larger text */
+    margin-top: 15px; /* Add spacing between inputs */
+}
+	body {
+    font-size: 14px; /* Base font size for mobile */
+}
+
+h1 {
+    font-size: 2rem; /* Smaller heading */
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5; /* Improve readability */
+}
+	.btn {
+    padding: 15px 25px; /* Larger buttons */
+    font-size: 1rem; /* Slightly larger text */
+    width: 100%; /* Full-width buttons */
+    text-align: center;
+    margin: 10px 0; /* Add spacing between buttons */
+}
     /* Adjust header for mobile */
     header {
         flex-direction: column;
         align-items: flex-start;
         padding: 10px;
     }
+
+    /* Hide floating elements */
+    .teacher-img, 
+    .speech-bubble {
+        display: none !important;
+    }
+
+    /* Add space below the footer */
+    footer {
+        padding-bottom: 80px; /* Adds space below the form */
+    }
+
+    /* Rest of your existing mobile styles... */
+    .logo img {
+        height: 40px;
+    }
+    /* ...other mobile styles... */
+}
 
     .logo img {
         height: 40px; /* Smaller logo for mobile */
@@ -120,6 +221,23 @@
         width: 100%; /* Full width for phones */
     }
 }
+/* Hide pop-up lady and speech bubble on mobile */
+@media (max-width: 768px) {
+    .teacher-img, .speech-bubble {
+        display: none !important;
+    }
+}
+@media (max-width: 768px) {
+    .hacker-img {
+        bottom: 100px; /* Move it higher */
+        right: 10px;
+        width: 100px; /* Make it smaller */
+	.hacker-img {
+    display: none !important;
+}
+    }
+}
+
 </style>
 
     <meta charset="UTF-8">
@@ -303,6 +421,33 @@
             opacity: 1;
             bottom: 20px;
         }
+	/* Loading Animation Styles */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    border: 4px solid #00ffcc;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
     </style>
 	<style>
 	/* Hamburger Menu Styles */
@@ -630,6 +775,9 @@
     </script>
 </head>
 <body>
+	<div id="loading">
+    <div class="spinner"></div>
+</div>
     <script>
         document.addEventListener("scroll", function() {
             let teacherImg = document.querySelector(".teacher-img");
@@ -1002,5 +1150,33 @@ document.addEventListener('keydown', function(e) {
         document.querySelector('.nav-links').classList.toggle('active');
     });
 </script>
+<script>
+    // Toggle mobile menu
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        this.classList.toggle('active'); // Rotate the hamburger icon
+        document.querySelector('.nav-links').classList.toggle('active'); // Toggle menu visibility
+    });
+// Show/hide the button based on scroll position
+window.onscroll = function() {
+    const backToTopButton = document.getElementById('back-to-top');
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        backToTopButton.style.display = 'block';
+    } else {
+        backToTopButton.style.display = 'none';
+    }
+};
+
+// Scroll to top when clicked
+document.getElementById('back-to-top').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+<script>
+    // Hide the loading animation when the page is fully loaded
+    window.onload = function() {
+        document.getElementById('loading').style.display = 'none';
+    };
+</script>
+<button id="back-to-top" title="Go to top">↑</button>
 </body>
 </html>
